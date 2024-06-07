@@ -21,6 +21,7 @@ class ChannelResource extends JsonResource
             'telegram_chat_id' => $this->telegram_chat_id,
             'members_count' => $this->members_count,
             'type' => $this->type,
+            'photo_path' => $this->photo_path,
             'username' => $this->username,
             'invite_link' => $this->invite_link,
             'is_bot_active' => $this->is_bot_active,

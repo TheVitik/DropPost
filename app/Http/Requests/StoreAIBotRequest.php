@@ -14,6 +14,16 @@ class StoreAIBotRequest extends FormRequest
         return true;
     }
 
+    protected function prepareForValidation()
+    {
+        if (!$this->has('is_generated_photos')) {
+            $this->merge(['is_generated_photos' => false]);
+        }
+        if (!$this->has('is_real_photos')) {
+            $this->merge(['is_real_photos' => false]);
+        }
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -23,12 +33,12 @@ class StoreAIBotRequest extends FormRequest
     {
         return [
             'topic' => 'required|string',
-            'keywords' => 'required|string',
+            'keywords' => 'required|array',
             'prompt' => 'nullable|string',
             'post_template_id' => 'nullable|integer|exists:post_templates,id',
             'is_generated_photos' => 'nullable|boolean',
             'is_real_photos' => 'nullable|boolean',
-            'post_planning' => 'nullable|integer',
+            'post_planning' => 'nullable|array',
         ];
     }
 }

@@ -22,7 +22,7 @@ class StoreChannelRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'telegram_chat_id' => ['required', 'string', 'max:255'],
+            'username' => ['required', 'string', 'max:255'],
         ];
     }
 }

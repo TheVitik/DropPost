@@ -14,6 +14,15 @@ class SetAIBotRequest extends FormRequest
         return true;
     }
 
+    protected function prepareForValidation()
+    {
+        // if ai_bot_id is empty, set it to null
+        if (empty($this->ai_bot_id)) {
+            $this->merge(['ai_bot_id' => null]);
+        }
+    }
+
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -22,7 +31,7 @@ class SetAIBotRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'ai_bot_id' => ['required', 'integer', 'exists:ai_bots,id'],
+            'ai_bot_id' => ['nullable','exists:ai_bots,id'],
         ];
     }
 }

@@ -23,26 +23,26 @@ class AIBotController extends Controller
 
     public function store(StoreAIBotRequest $request, Project $project): JsonResponse
     {
-        $project->bots()->create($request->validated());
+        $aiBot = $project->bots()->create($request->validated());
 
-        return response()->json(null, 204);
+        return response()->json(new AIBotResource($aiBot), 201);
     }
 
-    public function show(Project $project, AIBot $bot): JsonResponse
+    public function show(Project $project, AIBot $aiBot): JsonResponse
     {
-        return response()->json(new AIBotResource($bot));
+        return response()->json(new AIBotResource($aiBot));
     }
 
-    public function update(UpdateAIBotRequest $request, Project $project, AIBot $bot): JsonResponse
+    public function update(UpdateAIBotRequest $request, Project $project, AIBot $aiBot): JsonResponse
     {
-        $bot->update($request->validated());
+        $aiBot->update($request->validated());
 
-        return response()->json(null, 204);
+        return response()->json(new AIBotResource($aiBot));
     }
 
-    public function destroy(Project $project, AIBot $bot): JsonResponse
+    public function destroy(Project $project, AIBot $aiBot): JsonResponse
     {
-        $bot->delete();
+        $aiBot->delete();
 
         return response()->json(null, 204);
     }

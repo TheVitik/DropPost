@@ -21,8 +21,11 @@ class InviteUserRequest extends FormRequest
      */
     public function rules(): array
     {
+        // TODO: Except auth user fields
         return [
-            'user_id' => 'required|exists:users,id',
+            'user_id' => 'required_without_all:telegram_user_id,username|exists:users,id',
+            'telegram_user_id' => 'required_without_all:user_id,username|numeric',
+            'username' => 'required_without_all:user_id,telegram_user_id|alpha_dash',
         ];
     }
 }

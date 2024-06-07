@@ -14,6 +14,16 @@ class AIBotResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'name' => $this->topic . " ($this->id)",
+            'topic' => $this->topic,
+            'keywords' => $this->keywords,
+            'prompt' => $this->prompt,
+            'post_template_id' => $this->post_template_id,
+            'is_generated_photos' => $this->is_generated_photos,
+            'is_real_photos' => $this->is_real_photos,
+            'post_planning' => $this->post_planning,
+        ];
     }
 }

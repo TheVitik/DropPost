@@ -11,16 +11,15 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('posts', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('channel_id');
-            $table->foreign('channel_id')
+            $table->uuid('id')->primary();
+            $table->foreignUuid('channel_id')
                 ->references('id')
                 ->on('channels')
                 ->cascadeOnDelete();
             $table->bigInteger('telegram_message_id')->nullable();
             $table->text('content_json');
             $table->text('content_html');
-            $table->boolean('is_advertisement')->default(false);
+            //$table->boolean('is_advertisement')->default(false);
             $table->boolean('is_draft')->default(false);
             $table->timestamps();
         });

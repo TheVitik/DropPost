@@ -5,10 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\Pivot;
+use Illuminate\Support\Str;
 
-class ProjectUser extends Model
+class ProjectUser extends Pivot
 {
     use HasFactory;
+
+    protected $keyType = 'string';
+
+    public $incrementing = false;
 
     protected $with = ['project'];
 
@@ -25,6 +31,18 @@ class ProjectUser extends Model
     protected $casts = [
         'permissions' => 'array'
     ];
+
+    public static function boot() {
+        parent::boot();
+
+        static::creating(function ($model) {
+            $model->id = Str::uuid();
+        });
+
+        Pivot::creating(function($pivot) {
+            $pivot->id = Str::uuid();
+        });
+    }
 
     public function project(): BelongsTo
     {

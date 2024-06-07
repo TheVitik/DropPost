@@ -30,6 +30,13 @@ return [
     |                       Acme\Project\Commands\BotFather\ByeCommand::class,
     |             ]
     */
+
+    'api' => [
+        'id' => env('TELEGRAM_API_ID', 'ID'),
+        'hash' => env('TELEGRAM_API_HASH', 'HASH'),
+    ],
+
+
     'bots' => [
         'mybot' => [
             'token' => env('TELEGRAM_BOT_TOKEN', 'YOUR-BOT-TOKEN'),

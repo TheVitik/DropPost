@@ -14,6 +14,16 @@ class UpdateAIBotRequest extends FormRequest
         return true;
     }
 
+    protected function prepareForValidation()
+    {
+        if (!$this->has('is_generated_photos')) {
+            $this->merge(['is_generated_photos' => false]);
+        }
+        if (!$this->has('is_real_photos')) {
+            $this->merge(['is_real_photos' => false]);
+        }
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -22,13 +32,13 @@ class UpdateAIBotRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'topic' => ['required', 'string'],
-            'keywords' => ['required', 'string'],
-            'prompt' => ['required', 'string'],
-            'post_template_id' => ['required', 'integer', 'exists:post_templates,id'],
-            'is_generated_photos' => ['required', 'boolean'],
-            'is_real_photos' => ['required', 'boolean'],
-            'post_planning' => ['required', 'string'],
+            'topic' => 'required|string',
+            'keywords' => 'required|array',
+            'prompt' => 'nullable|string',
+            'post_template_id' => 'nullable|integer|exists:post_templates,id',
+            'is_generated_photos' => 'nullable|boolean',
+            'is_real_photos' => 'nullable|boolean',
+            'post_planning' => 'nullable|array',
         ];
     }
 }

@@ -11,12 +11,12 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('channels', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->string('name');
             $table->text('description');
             $table->bigInteger('telegram_chat_id');
-            $table->unsignedBigInteger('project_id');
-            $table->foreign('project_id')
+            //$table->unsignedBigInteger('project_id');
+            $table->foreignUuid('project_id')
                 ->references('id')
                 ->on('projects')
                 ->cascadeOnDelete();
@@ -24,17 +24,19 @@ return new class extends Migration {
             $table->string('type');
             $table->string('username')->nullable();
             $table->string('invite_link')->nullable();
+            $table->string('photo_path')->nullable();
             // Settings
             $table->boolean('is_bot_active')->default(false);
             $table->boolean('is_automessage_active')->default(false);
             $table->boolean('is_copy_active')->default(false);
-            $table->unsignedBigInteger('ai_bot_id')->nullable();
-            $table->foreign('ai_bot_id')
+            //$table->unsignedBigInteger('ai_bot_id')->nullable();
+            $table->foreignUuid('ai_bot_id')
+                ->nullable()
                 ->references('id')
                 ->on('ai_bots')
                 ->nullOnDelete();
             $table->text('automessage')->nullable();
-            $table->string('copy_channel_username')->nullable();
+            //$table->bigInteger('copy_telegram_chat_id')->nullable();
             $table->timestamps();
         });
     }

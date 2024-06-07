@@ -33,7 +33,11 @@ class ProjectController extends Controller
     {
         return DB::transaction(function () use ($request) {
             $project = Project::create($request->validated());
-            $project->users()->attach(auth()->id());
+            $project->users()->attach(auth()->id(), [
+                'role' => UserRole::OWNER,
+                'permissions' => [],
+                'is_invited' => false
+            ]);
             return response()->json(new ProjectResource($project), 201);
         });
     }
