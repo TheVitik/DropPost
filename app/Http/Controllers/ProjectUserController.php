@@ -7,6 +7,7 @@ use App\Http\Requests\InviteUserRequest;
 use App\Http\Resources\ProjectUserResource;
 use App\Models\Invitation;
 use App\Models\Project;
+use App\Models\User;
 use App\Services\Telegram\Client\InvitationService;
 use danog\MadelineProto\Exception;
 use Illuminate\Http\JsonResponse;
@@ -41,6 +42,19 @@ class ProjectUserController extends Controller
         ]);
 
         return response()->json(null, 201);
+    }
+
+    /**
+     * Update a user's role and permissions in a project.
+     */
+    public function update(Request $request, Project $project, User $user): JsonResponse
+    {
+        $project->users()->updateExistingPivot($user->id, [
+            'role' => $request->role,
+            'permissions' => $request->permissions,
+        ]);
+
+        return response()->json(null, 204);
     }
 
     /**
