@@ -17,9 +17,9 @@ class Invitation extends Model
     protected $with = ['project', 'user'];
 
     protected $fillable = [
-        'user_id',
         'project_id',
         'username',
+        'telegram_user_id'
     ];
 
     protected $casts = [

@@ -19,6 +19,11 @@ const router = createRouter({
                     component: () => import('@/views/pages/projects/CreateProject.vue')
                 },
                 {
+                    path: '/projects/edit',
+                    name: 'projects-edit',
+                    component: () => import('@/views/pages/projects/EditProject.vue')
+                },
+                {
                     path: '/channels',
                     name: 'channels',
                     component: () => import('@/views/pages/channels/Channels.vue')
@@ -84,6 +89,11 @@ const router = createRouter({
             path: '/auth/login',
             name: 'login',
             component: () => import('@/views/pages/auth/Login.vue')
+        },
+        {
+            path: '/invite/:hash',
+            name: 'invite-view',
+            component: () => import('@/views/pages/Invite.vue')
         },
     ]
 });

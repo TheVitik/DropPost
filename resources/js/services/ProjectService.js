@@ -73,4 +73,46 @@ export class ProjectService {
                 throw error;
             });
     }
+
+    inviteUser(projectId, username) {
+        return axios.post(`/api/projects/${projectId}/invite`, {username: username})
+            .then(response => {
+                if (response.status !== 200) {
+                    throw new Error('Failed to invite user');
+                }
+                return response.data;
+            })
+            .catch(error => {
+                console.error('Error inviting user:', error);
+                throw error;
+            });
+    }
+
+    updateUser(projectId, userId, data) {
+        return axios.put(`/api/projects/${projectId}/users/${userId}`, data)
+            .then(response => {
+                if (response.status !== 200) {
+                    throw new Error('Failed to update user');
+                }
+                return response.data;
+            })
+            .catch(error => {
+                console.error('Error updating user:', error);
+                throw error;
+            });
+    }
+
+    removeUser(projectId, userId) {
+        return axios.delete(`/api/projects/${projectId}/users/${userId}`)
+            .then(response => {
+                if (response.status !== 200) {
+                    throw new Error('Failed to remove user');
+                }
+                return response.data;
+            })
+            .catch(error => {
+                console.error('Error removing user:', error);
+                throw error;
+            });
+    }
 }

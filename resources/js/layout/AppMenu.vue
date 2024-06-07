@@ -24,12 +24,10 @@ export default {
     shouldDisplayItem(item) {
       console.log(item);
       if (item.separator) {
-        console.log("separator");
         return false;
       }
 
       if (item.isProject) {
-        console.log("project");
         return localStorage.getItem('current_project') !== undefined;
       }
       console.log("final");

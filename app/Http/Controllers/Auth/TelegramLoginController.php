@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 class TelegramLoginController extends Controller
 {
     /**
+     * Login user by telegram data.
      * @throws NotTelegramException
      * @throws TelegramDataOutdatedException
      */
@@ -38,6 +39,9 @@ class TelegramLoginController extends Controller
         return response()->json(['token' => $token]);
     }
 
+    /**
+     * Logout user.
+     */
     public function logout(Request $request): JsonResponse
     {
         $request->user()->currentAccessToken()->delete();
